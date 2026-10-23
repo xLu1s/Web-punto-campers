@@ -16,10 +16,10 @@ npm run build && python3 tests/screenshots.py      # preview-hero/desktop/mobile
 
 ## Dónde se cambian los datos
 - `src/data/negocio.ts` — **único** archivo con teléfono, WhatsApp, email, dirección, horario, redes y nota de Google.
-  ⚠️ Dirección pendiente de confirmar: se usa la de Google (Filà Benimerins 25); la alternativa (Enginyer Vilaplana 17) está en `direccionAlternativa`.
-- `src/data/modelos.ts` — modelos, precios (catálogo de mayo de 2026, IVA incl.) y tabla comparativa.
+  Dirección confirmada: Carrer Filà Benimerins, 25, 03801 Alcoi.
+- `src/data/modelos.ts` — modelos, fotos, precios (catálogo de mayo de 2026, IVA incl.; Advance 26.300 € según vídeo de YouTube) y tabla comparativa.
 - `src/data/resenas.ts` — reseñas reales de Google (5★, en español).
-- `src/data/proyectos.ts` — galería y pares **antes/después** (vacío hasta tener permiso de la clienta).
+- `src/data/proyectos.ts` — galería y pares **antes/después** (Jennifer, con permiso).
 - `src/data/faq.ts` — FAQ de homologación.
 
 ## Notas

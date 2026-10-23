@@ -48,6 +48,39 @@ with sync_playwright() as p:
     tv = int(tp.locator('[data-ad]').evaluate("e => e.style.getPropertyValue('--pos')").rstrip('%'))
     check(70 <= tv <= 90, f'toque en móvil a ~80% ({tv}%)')
 
+    # ---- Slider en producción (portada) ----
+    hp = b.new_page(viewport={'width': 1280, 'height': 900})
+    hp.goto(f'{URL}/')
+    ads = hp.locator('#proyectos [data-ad]')
+    check(ads.count() >= 1, f'slider antes/después visible en la portada ({ads.count()})')
+    hp.locator('#antes-despues').scroll_into_view_if_needed(); hp.wait_for_timeout(1200)
+    check(ads.first.is_visible(), 'slider visible tras scroll')
+    srcs = hp.locator('#proyectos [data-ad] img').evaluate_all('els => els.map(e => e.currentSrc || e.src)')
+    check(any('jennifer-antes' in x for x in srcs) and any('jennifer-despues' in x for x in srcs), 'usa el par real de Jennifer')
+    bb = ads.first.bounding_box()
+    hp.mouse.move(bb['x'] + bb['width'] * .5, bb['y'] + bb['height'] / 2); hp.mouse.down()
+    hp.mouse.move(bb['x'] + bb['width'] * .75, bb['y'] + bb['height'] / 2, steps=8); hp.mouse.up()
+    pv = int(ads.first.evaluate("e => e.style.getPropertyValue('--pos')").rstrip('%'))
+    check(70 <= pv <= 80, f'arrastre en portada a ~75% ({pv}%)')
+    # ---- Precio Advance y dirección única ----
+    html = hp.content()
+    card = hp.locator('#m-advance').locator('xpath=..').inner_text()
+    check('26.300' in card and '25.000' not in card, 'tarjeta Advance a 26.300 €')
+    th = hp.locator('.tabla thead th').nth(3).inner_text()
+    check('26.300' in th, f'tabla comparativa Advance 26.300 € ({th!r})')
+    import json
+    ld = [json.loads(x) for x in hp.locator('script[type="application/ld+json"]').all_text_contents()][0]
+    prices = [o['price'] for o in ld[0]['makesOffer']]
+    check(prices == [12000, 13000, 26300, 36500], f'JSON-LD ofertas {prices}')
+    check('25.000' not in html and '25000' not in html, 'no queda 25.000 € en la página')
+    check(ld[0]['address']['streetAddress'] == 'Carrer Filà Benimerins, 25', 'JSON-LD con la dirección confirmada')
+    check('Vilaplana' not in html and 'Enginyer' not in html, 'sin dirección alternativa en la página')
+    check(html.count('Benimerins') >= 3, 'dirección única Filà Benimerins en contacto/pie/mapa')
+    msrc = hp.locator('[data-mapa]').get_attribute('data-src')
+    check('Benimerins' in urllib.parse.unquote(msrc), 'mapa con Filà Benimerins')
+    check(hp.locator('.modelo .modelo__foto img').count() == 4, 'foto en cada tarjeta de modelo')
+    hp.close()
+
     # ---- Formulario ----
     pg = b.new_page(viewport={'width': 1280, 'height': 900})
     abiertas = []

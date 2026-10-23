@@ -3,6 +3,9 @@ import { Picture } from 'astro:assets';
 import { getImage } from 'astro:assets';
 import { proyectos, antesDespues } from '../data/proyectos';
 import BeforeAfter from './BeforeAfter.astro';
+import { resenas } from '../data/resenas';
+const jen = resenas.find((r) => r.autor.startsWith('Jennifer'))!;
+const cita = { autor: jen.autor, texto: 'Les expliqué lo que quería y necesitaba en mi furgoneta y así fue. Deseo concedido. Muy rápido y muy bien hecho.' };
 const grandes = await Promise.all(proyectos.map((p) => getImage({ src: p.img, width: 1400, format: 'webp' })));
 ---
 <section class="section" id="proyectos" aria-labelledby="proy-titulo">
@@ -12,11 +15,21 @@ const grandes = await Promise.all(proyectos.map((p) => getImage({ src: p.img, wi
       <h2 id="proy-titulo" class="titulo">Hecho en <b>nuestro taller</b></h2>
       <p class="lead">Madera de verdad, techos de lamas, cocinas, camas y armarios pensados para cada furgo.</p>
     </div>
-    {antesDespues.length > 0 && (
-      <div class="antes-despues reveal">
-        {antesDespues.map((p) => <BeforeAfter {...p} />)}
+    {antesDespues.map((p) => (
+      <div class="ad-destacado" id="antes-despues">
+        <div class="ad-destacado__slider reveal"><BeforeAfter {...p} /></div>
+        <div class="ad-destacado__texto reveal reveal-d1">
+          <p class="eyebrow">Antes / Después</p>
+          <h3 class="titulo titulo--md">De caja vacía <b>a camper</b></h3>
+          <p class="lead">{p.titulo}: {p.detalle?.toLowerCase()}. Arrastra el control para ver el cambio.</p>
+          <blockquote class="ad-cita">
+            <p>«{cita.texto}»</p>
+            <footer>{cita.autor} · reseña en Google</footer>
+          </blockquote>
+          <a class="btn btn--primario" href="#presupuesto">Pide presupuesto</a>
+        </div>
       </div>
-    )}
+    ))}
     <div class="galeria">
       {proyectos.map((p, i) => (
         <button type="button" class="galeria__item reveal" data-lightbox={grandes[i].src} data-caption={`${p.titulo} · ${p.detalle}`} aria-label={`Ampliar foto: ${p.titulo}, ${p.detalle}`}>

@@ -523,3 +523,26 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .tile .patron { position: absolute; top: 30%; left: 0; right: 0; height: 30%; z-index: -1; opacity: .16; color: var(--crema); width: 100%; }
 .tile--homologa .patron { opacity: .5; color: var(--mostaza); }
 @media (min-width: 1000px) { .t6 .patron { top: 0; height: 100%; left: 45%; width: 55%; } }
+
+/* ---------- v1.1: fotos de modelos, antes/después destacado, banner ---------- */
+.modelo__foto { margin: -1.6rem -1.4rem 1.2rem; aspect-ratio: 4 / 3; overflow: hidden; position: relative; }
+.modelo__foto picture, .modelo__foto img { width: 100%; height: 100%; }
+.modelo__foto img { object-fit: cover; transition: transform 1s var(--ease); }
+.modelo:hover .modelo__foto img { transform: scale(1.05); }
+.modelo__extras { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 6px; margin-top: .9rem; }
+.modelo__extras img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.ad-destacado { display: grid; gap: 2rem; align-items: center; margin-bottom: clamp(3.5rem, 8vw, 6rem); padding: clamp(1rem, 3vw, 2rem); border: 1px solid var(--linea); background: var(--negro-2); position: relative; }
+.ad-destacado::before { content: ''; position: absolute; top: -1px; left: -1px; width: 64px; height: 64px; background: var(--mostaza); clip-path: polygon(0 0, 100% 0, 0 100%); }
+.ad-destacado__slider { max-width: 480px; width: 100%; margin-inline: auto; }
+.ad-destacado .ad-wrap .galeria__cap { display: none; }
+.ad-destacado__texto .lead { margin-bottom: 1.6rem; }
+.ad-cita { margin: 0 0 2rem; padding: 1rem 0 1rem 1.2rem; border-left: 3px solid var(--mostaza); }
+.ad-cita p { margin: 0; font-size: 1.1rem; font-style: italic; color: var(--crema); }
+.ad-cita footer { margin-top: .6rem; font-family: var(--f-mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--tenue); }
+.ad__mango { width: 56px; height: 56px; }
+@media (min-width: 900px) { .ad-destacado { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 3.5rem; } }
+.banner { position: relative; min-height: clamp(440px, 70vh, 680px); display: flex; align-items: center; overflow: hidden; }
+.banner__img, .banner__img img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.banner__img img { object-fit: cover; }
+.banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(17,17,17,.85), rgba(17,17,17,.25) 75%); }
+.banner__in { position: relative; z-index: 1; padding-block: 5rem; }

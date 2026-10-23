@@ -1,27 +1,14 @@
 /**
  * ÚNICA fuente de datos de contacto del negocio.
- * Origen: brief.md (Google Maps, OSM, web antigua, BORME). Todo verificado en fuentes públicas a 23/10/2026.
- *
- * ⚠️ DIRECCIÓN SIN CONFIRMAR: Google Maps dice "Carrer Filà Benimerins, 25, 03801 Alcoi";
- * la web antigua y OpenStreetMap dicen "Carrer Enginyer Vilaplana, 17, 03803 Alcoi".
- * De momento se usa la de Google. Para cambiarla, sustituye `direccion` por `direccionAlternativa`.
+ * Origen: brief.md (Google Maps, OSM, web antigua, BORME). Dirección confirmada por el cliente: Carrer Filà Benimerins, 25.
  */
-export const direccionGoogle = {
+export const direccion = {
   calle: 'Carrer Filà Benimerins, 25',
   cp: '03801',
   localidad: 'Alcoi',
   provincia: 'Alicante',
   pais: 'ES',
   geo: { lat: 38.68483, lng: -0.48853 },
-};
-
-export const direccionAlternativa = {
-  calle: 'Carrer Enginyer Vilaplana, 17',
-  cp: '03803',
-  localidad: 'Alcoi',
-  provincia: 'Alicante',
-  pais: 'ES',
-  geo: { lat: 38.70105, lng: -0.48334 },
 };
 
 export const negocio = {
@@ -34,7 +21,7 @@ export const negocio = {
   telefonoE164: '+34601576041',
   whatsapp: '34601576041',
   email: 'puntocampers@gmail.com',
-  direccion: direccionGoogle,
+  direccion,
   // Lunes a jueves 08:00–14:00 y 15:30–18:00 · viernes 08:00–14:00 (Google Maps y OSM coinciden)
   horario: [
     { dias: 'Lunes a jueves', horas: '08:00–14:00 · 15:30–18:00' },

@@ -1,4 +1,5 @@
 ---
+import { Picture } from 'astro:assets';
 import { modelos, comparativa, formatoPrecio } from '../data/modelos';
 const check = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>';
 ---
@@ -15,6 +16,9 @@ const check = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true
     <div class="modelos">
       {modelos.map((m, i) => (
         <article class={`modelo reveal ${i === 3 ? 'modelo--top' : ''} ${['', 'reveal-d1', 'reveal-d2', 'reveal-d3'][i]}`} aria-labelledby={`m-${m.id}`}>
+          <div class="modelo__foto">
+            <Picture src={m.img} formats={['avif', 'webp']} widths={[400, 640, 900]} sizes="(min-width: 1150px) 290px, (min-width: 700px) 45vw, 92vw" alt={`Modelo ${m.nombre}`} loading="lazy" style={m.imgPos ? `object-position:${m.imgPos}` : undefined} />
+          </div>
           <div class="modelo__nivel" aria-hidden="true">{[0, 1, 2, 3].map((n) => <i class={n <= i ? 'on' : ''}></i>)}</div>
           <h3 id={`m-${m.id}`}><span style="font-weight:300">Modelo </span><b>{m.nombre}</b></h3>
           <p class="modelo__lema">«{m.lema}»</p>
@@ -27,6 +31,11 @@ const check = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true
           <ul class="modelo__dest">{m.destacados.map((d) => <li>{d}</li>)}</ul>
           <details>
             <summary>Todo lo que incluye</summary>
+            {m.extras && (
+              <div class="modelo__extras">
+                {m.extras.map((x) => <Picture src={x.img} formats={['avif', 'webp']} widths={[300, 460]} sizes="140px" alt={x.alt} loading="lazy" />)}
+              </div>
+            )}
             {m.incluye.map((g) => (<><h4>{g.grupo}</h4><ul>{g.items.map((it) => <li>{it}</li>)}</ul></>))}
           </details>
           <a class="btn btn--borde btn--sm btn--full" href="#presupuesto" data-modelo={`Modelo ${m.nombre}`}>Presupuesto {m.nombre}</a>

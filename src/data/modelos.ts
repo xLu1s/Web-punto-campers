@@ -1,7 +1,17 @@
+import type { ImageMetadata } from 'astro';
+import imgGo from '../assets/img/modelo-go-cama-lamas.jpg';
+import imgGoInt from '../assets/img/modelo-go-interior.jpg';
+import imgStart from '../assets/img/modelo-start.jpg';
+import imgStartInt from '../assets/img/modelo-start-interior.jpg';
+import imgAdvance from '../assets/img/modelo-advance.jpg';
+import imgFull from '../assets/img/modelo-full-equip.jpg';
+import imgFullBano from '../assets/img/modelo-full-equip-bano.jpg';
+import imgFullComedor from '../assets/img/modelo-full-equip-comedor.jpg';
+
 /**
  * Modelos del "CATÁLOGO MÓVIL" de Punto Campers (21/05/2026). Precios con IVA incluido.
- * ⚠️ Pendiente de confirmar con el cliente: precios vigentes (el vídeo de YouTube del 22/09/2026 muestra 26.300 €),
- * y las incoherencias internas del catálogo (nevera, depósitos). Donde ficha y comparativa difieren se usa la ficha.
+ * Advance: 26.300 € (precio del vídeo de YouTube del 22/09/2026, confirmado por el cliente; el catálogo decía 25.000 €).
+ * Donde ficha y comparativa del catálogo difieren se usa la ficha.
  */
 export type Modelo = {
   id: string;
@@ -13,11 +23,17 @@ export type Modelo = {
   intro: string;
   destacados: string[];
   incluye: { grupo: string; items: string[] }[];
+  img: ImageMetadata;
+  imgPos?: string;
+  extras?: { img: ImageMetadata; alt: string }[];
 };
 
 export const modelos: Modelo[] = [
   {
     id: 'go',
+    img: imgGo,
+    imgPos: 'center 60%',
+    extras: [{ img: imgGoInt, alt: 'Modelo Go!: cajonera y cama en madera en crudo' }],
     nombre: 'Go!',
     lema: 'Tu libertad empieza aquí',
     precio: 12000,
@@ -35,6 +51,8 @@ export const modelos: Modelo[] = [
   },
   {
     id: 'start',
+    img: imgStart,
+    extras: [{ img: imgStartInt, alt: 'Modelo Start: interior con comedor y cama' }],
     nombre: 'Start',
     lema: 'El paso que lo cambia todo',
     precio: 13000,
@@ -52,9 +70,11 @@ export const modelos: Modelo[] = [
   },
   {
     id: 'advance',
+    img: imgAdvance,
+    imgPos: 'center 55%',
     nombre: 'Advance',
     lema: 'El equilibrio que buscas',
-    precio: 25000,
+    precio: 26300,
     furgo: 'A partir de L2H2',
     plazas: 4,
     intro:
@@ -69,6 +89,12 @@ export const modelos: Modelo[] = [
   },
   {
     id: 'full-equip',
+    img: imgFull,
+    imgPos: 'center 40%',
+    extras: [
+      { img: imgFullComedor, alt: 'Full Equip: comedor con mesa de madera' },
+      { img: imgFullBano, alt: 'Full Equip: baño' },
+    ],
     nombre: 'Full Equip',
     lema: 'Viaja a lo grande',
     precio: 36500,

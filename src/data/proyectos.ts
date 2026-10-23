@@ -11,8 +11,14 @@ import cocinaPortatil from '../assets/img/modulo-cocina-portatil.jpg';
 import goLamas from '../assets/img/modelo-go-cama-lamas.jpg';
 import goInterior from '../assets/img/modelo-go-interior.jpg';
 import claraboya from '../assets/img/techo-lamas-claraboya.jpg';
+import jenAntes from '../assets/img/jennifer-antes.jpg';
+import jenDespues from '../assets/img/jennifer-despues.jpg';
+import jenMar from '../assets/img/jennifer-despues-mar.jpg';
+import jenSuelo from '../assets/img/jennifer-proceso-suelo.jpg';
+import advance from '../assets/img/modelo-advance.jpg';
+import fullEquip from '../assets/img/modelo-full-equip.jpg';
 
-/** Solo fotos publicadas por la propia empresa (web antigua, ficha de Google del propietario, Instagram, catálogo, vídeo). */
+/** Fotos de la empresa (web antigua, Google, Instagram, catálogo, vídeo) y de la clienta Jennifer (con su permiso). */
 export type Proyecto = { img: ImageMetadata; titulo: string; detalle: string; tipo: string };
 
 export const proyectos: Proyecto[] = [
@@ -28,14 +34,14 @@ export const proyectos: Proyecto[] = [
   { img: claraboya, titulo: 'Claraboya y encimera', detalle: 'Encimera de madera bajo la claraboya', tipo: 'Camperización completa' },
   { img: goInterior, titulo: 'Modelo Go!', detalle: 'Cajonera y cama en madera en crudo', tipo: 'Modelo Go!' },
   { img: lamasLateral, titulo: 'Vista lateral', detalle: 'Desde la puerta corredera', tipo: 'Camperización completa' },
+  { img: jenSuelo, titulo: 'En el taller', detalle: 'Suelo y paneles antes de los muebles', tipo: 'Proceso' },
+  { img: jenMar, titulo: 'Lista para viajar', detalle: 'La furgo de Jennifer, frente al mar', tipo: 'Camperización a medida' },
+  { img: advance, titulo: 'Modelo Advance', detalle: 'Cocina fija con encimera de madera', tipo: 'Modelo Advance' },
+  { img: fullEquip, titulo: 'Modelo Full Equip', detalle: 'Armarios en columna y claraboya', tipo: 'Modelo Full Equip' },
 ];
 
-/**
- * Pares ANTES / DESPUÉS reales del mismo vehículo. El slider solo aparece si hay al menos uno.
- * El único par real localizado es de una clienta (fotos de su reseña de Google: gmaps_07/08 = antes,
- * gmaps_05/06 = después, con personas). NO se usa hasta tener su permiso por escrito.
- * Para activarlo: copia las fotos a src/assets/img/ e importa aquí, p. ej.:
- *   { antes: antesImg, despues: despuesImg, titulo: 'Furgo de Jennifer', detalle: 'De caja vacía a camper' }
- */
+/** Pares ANTES / DESPUÉS reales del mismo vehículo (fotos de la reseña de Jennifer, con su permiso). */
 export type AntesDespues = { antes: ImageMetadata; despues: ImageMetadata; titulo: string; detalle?: string };
-export const antesDespues: AntesDespues[] = [];
+export const antesDespues: AntesDespues[] = [
+  { antes: jenAntes, despues: jenDespues, titulo: 'La furgo de Jennifer', detalle: 'De caja de carga vacía a camper a medida' },
+];

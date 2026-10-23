@@ -1,0 +1,12 @@
+---
+import { Picture } from 'astro:assets';
+import img from '../assets/img/cama-atardecer.jpg';
+---
+<section class="banner" aria-labelledby="banner-titulo">
+  <Picture src={img} formats={['avif', 'webp']} widths={[640, 1024, 1536]} sizes="100vw" alt="" loading="lazy" class="banner__img" />
+  <div class="wrap banner__in reveal">
+    <h2 id="banner-titulo" class="titulo titulo--xl">Consigue tu <b>libertad</b><br />sobre ruedas</h2>
+    <p class="lead">Si tienes una furgoneta, tienes una camper.</p>
+    <p style="margin-top:2rem"><a class="btn btn--primario" href="#presupuesto">Pide presupuesto</a></p>
+  </div>
+</section>

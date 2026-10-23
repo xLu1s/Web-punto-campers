@@ -5,9 +5,9 @@ interface Props { antes: ImageMetadata; despues: ImageMetadata; titulo: string; 
 const { antes, despues, titulo, detalle } = Astro.props;
 ---
 <figure class="ad-wrap" style="margin:0">
-  <div class="ad" data-ad style="--pos:50%">
-    <Image src={despues} alt={`${titulo}: después`} widths={[600, 1000, 1400]} sizes="(min-width: 1000px) 60vw, 100vw" class="ad__despues" />
-    <Image src={antes} alt={`${titulo}: antes`} widths={[600, 1000, 1400]} sizes="(min-width: 1000px) 60vw, 100vw" class="ad__antes" />
+  <div class="ad" data-ad style={`--pos:50%;aspect-ratio:${antes.width} / ${antes.height}`}>
+    <Image src={despues} alt={`${titulo}: después`} widths={[480, 760, 1100]} sizes="(min-width: 1000px) 520px, 92vw" class="ad__despues" loading="eager" />
+    <Image src={antes} alt={`${titulo}: antes`} widths={[480, 760, 1100]} sizes="(min-width: 1000px) 520px, 92vw" class="ad__antes" loading="eager" />
     <span class="ad__tag ad__tag--antes">Antes</span>
     <span class="ad__tag ad__tag--despues">Después</span>
     <input class="ad__rango" type="range" min="0" max="100" step="1" value="50" aria-label={`Comparar antes y después: ${titulo}`} aria-valuetext="50 % antes" data-ad-rango />
