@@ -1,0 +1,4 @@
+---
+const { class: cls = 'tri', down = true } = Astro.props;
+---
+<svg class={cls} viewBox="0 0 10 9" aria-hidden="true"><path fill="currentColor" d={down ? 'M0 0H10L5 9Z' : 'M0 9H10L5 0Z'} /></svg>

@@ -1,0 +1,45 @@
+---
+import Tri from './Tri.astro';
+import { negocio } from '../data/negocio';
+import { modelos } from '../data/modelos';
+const palabras = ['Camperizaciones', 'Kits camper', 'Muebles a medida', 'Homologación ITV', 'Desde Alcoi'];
+const minimo = Math.min(...modelos.map((m) => m.precio));
+---
+<div class="marquesina" aria-hidden="true">
+  <div class="marquesina__pista">
+    {[0, 1].map(() => (
+      <span>{palabras.map((p, i) => (<>{i % 2 ? <i>{p}</i> : p}<Tri class="tri" /></>))}</span>
+    ))}
+  </div>
+</div>
+<section class="section" aria-labelledby="intro-titulo">
+  <div class="wrap intro">
+    <div class="reveal">
+      <p class="eyebrow">Punto Campers</p>
+      <h2 id="intro-titulo" class="titulo">Tu furgoneta, <b>tu estilo,</b> tu aventura</h2>
+      <p class="lead">
+        Somos un taller de camperización en Alcoi. Hacemos camperizaciones completas, kits camper a medida,
+        modulares y de automontaje, muebles de madera a medida e instalaciones de electricidad, agua y calefacción.
+        Y nos encargamos de la documentación para homologar en la ITV.
+      </p>
+    </div>
+    <div class="cifras reveal reveal-d1" role="list">
+      <div class="cifra" role="listitem">
+        <span class="cifra__num"><span data-count={negocio.google.nota} data-decimals="1">{String(negocio.google.nota).replace('.', ',')}</span><small>★</small></span>
+        <span class="cifra__txt">Nota en Google</span>
+      </div>
+      <div class="cifra" role="listitem">
+        <span class="cifra__num" data-count={negocio.google.resenas}>{negocio.google.resenas}</span>
+        <span class="cifra__txt">Reseñas en Google</span>
+      </div>
+      <div class="cifra" role="listitem">
+        <span class="cifra__num" data-count={modelos.length}>{modelos.length}</span>
+        <span class="cifra__txt">Modelos con precio cerrado</span>
+      </div>
+      <div class="cifra" role="listitem">
+        <span class="cifra__num"><span data-count={minimo / 1000} data-decimals="0">{minimo / 1000}</span><small>K €</small></span>
+        <span class="cifra__txt">Precio de partida, IVA incl.</span>
+      </div>
+    </div>
+  </div>
+</section>

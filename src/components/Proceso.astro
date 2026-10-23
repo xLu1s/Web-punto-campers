@@ -1,0 +1,25 @@
+---
+const pasos = [
+  ['Cuéntanos tu idea', 'Escríbenos por WhatsApp o rellena el formulario: qué furgoneta tienes y cómo quieres viajar.'],
+  ['Diseño a medida', 'Eliges uno de nuestros modelos o diseñamos contigo la distribución. Trabajamos mano a mano contigo.'],
+  ['Presupuesto', 'Te pasamos el presupuesto con todo lo que incluye tu camperización.'],
+  ['Manos a la obra', 'Lo construimos en nuestro taller de Alcoi: aislamiento, panelado, muebles, electricidad y agua.'],
+  ['Homologación y entrega', 'Tramitamos la documentación para homologar en la ITV y te llevas tu camper.'],
+];
+---
+<section class="section" id="proceso" aria-labelledby="proc-titulo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Cómo trabajamos</p>
+      <h2 id="proc-titulo" class="titulo">De furgo <b>a camper</b> en 5 pasos</h2>
+    </div>
+    <ol class="pasos">
+      {pasos.map(([t, p], i) => (
+        <li class={`paso reveal ${['', 'reveal-d1', 'reveal-d2', 'reveal-d3', 'reveal-d3'][i]}`}>
+          <span class="paso__num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <div><h3>{t}</h3><p>{p}</p></div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

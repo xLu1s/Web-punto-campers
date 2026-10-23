@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://xlu1s.github.io/Web-punto-campers/sitemap-index.xml

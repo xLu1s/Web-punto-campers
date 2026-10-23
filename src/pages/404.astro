@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<Base title="Página no encontrada | Punto Campers" description="Esta página no existe. Vuelve al inicio de Punto Campers, camperizaciones en Alcoi.">
+  <Header />
+  <main id="contenido" class="section" style="min-height:70vh;display:grid;place-items:center;text-align:center">
+    <div class="wrap">
+      <h1 class="titulo titulo--xl">Error <b>404</b></h1>
+      <p class="lead" style="margin-inline:auto">Esta página no existe o ha cambiado de sitio.</p>
+      <p style="margin-top:2rem"><a class="btn btn--primario" href={`${base}/`}>Volver al inicio</a></p>
+    </div>
+  </main>
+  <Footer />
+</Base>

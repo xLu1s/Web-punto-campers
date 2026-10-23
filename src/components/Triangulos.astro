@@ -1,0 +1,14 @@
+---
+// Banda de triángulos alternos (como los grabados en sus muebles).
+const n = 80;
+let d = '';
+for (let i = 0; i < n; i++) {
+  const x = i * 14;
+  d += i % 2 === 0 ? `M${x} 2 L${x + 14} 2 L${x + 7} 16 Z ` : `M${x} 16 L${x + 14} 16 L${x + 7} 2 Z `;
+}
+---
+<div class="sep" aria-hidden="true">
+  <svg class="triangulos marca reveal" viewBox="0 0 1120 18" preserveAspectRatio="xMidYMid slice">
+    <path pathLength="1" d={d} />
+  </svg>
+</div>

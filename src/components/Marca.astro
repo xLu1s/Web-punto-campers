@@ -1,0 +1,17 @@
+---
+// Versión geométrica del símbolo del logo (aspa + chevrons + triángulos) que se "dibuja".
+const { class: cls = '', title } = Astro.props;
+---
+<svg class={`marca ${cls}`} viewBox="-6 -6 112 112" aria-hidden={title ? undefined : 'true'} role={title ? 'img' : undefined}>
+  {title && <title>{title}</title>}
+  <path pathLength="1" d="M4 4 L96 96" />
+  <path pathLength="1" d="M96 4 L4 96" />
+  <path pathLength="1" d="M30 14 L50 34 L70 14" />
+  <path pathLength="1" d="M86 30 L66 50 L86 70" />
+  <path pathLength="1" d="M70 86 L50 66 L30 86" />
+  <path pathLength="1" d="M14 70 L34 50 L14 30" />
+  <path pathLength="1" d="M43 0 L57 0 L50 7 Z" />
+  <path pathLength="1" d="M100 43 L100 57 L93 50 Z" />
+  <path pathLength="1" d="M57 100 L43 100 L50 93 Z" />
+  <path pathLength="1" d="M0 57 L0 43 L7 50 Z" />
+</svg>

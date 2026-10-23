@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/img/logo-blanco.png';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const links = [
+  [`${base}/#modelos`, 'Modelos'],
+  [`${base}/#servicios`, 'Servicios'],
+  [`${base}/#proyectos`, 'Proyectos'],
+  [`${base}/#opiniones`, 'Opiniones'],
+  [`${base}/#homologacion`, 'Homologación'],
+];
+---
+<header class="header" data-header>
+  <div class="wrap header__in">
+    <a class="header__logo" href={`${base}/`} aria-label="Punto Campers, inicio">
+      <Image src={logo} alt="Punto Campers" width={300} loading="eager" />
+    </a>
+    <nav class="nav" aria-label="Principal">
+      {links.map(([h, t]) => <a href={h}>{t}</a>)}
+    </nav>
+    <a class="btn btn--primario btn--sm header__cta" href={`${base}/#presupuesto`}>Pide presupuesto</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu-movil" data-menu-btn>
+      <span></span><b class="visually-hidden">Menú</b>
+    </button>
+  </div>
+</header>
+<div class="menu-movil" id="menu-movil" data-menu>
+  {links.map(([h, t]) => <a href={h}>{t}</a>)}
+  <a class="btn btn--primario" href={`${base}/#presupuesto`}>Pide presupuesto</a>
+</div>

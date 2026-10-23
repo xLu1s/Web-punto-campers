@@ -1,0 +1,34 @@
+---
+import { Picture } from 'astro:assets';
+import { getImage } from 'astro:assets';
+import { proyectos, antesDespues } from '../data/proyectos';
+import BeforeAfter from './BeforeAfter.astro';
+const grandes = await Promise.all(proyectos.map((p) => getImage({ src: p.img, width: 1400, format: 'webp' })));
+---
+<section class="section" id="proyectos" aria-labelledby="proy-titulo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Proyectos</p>
+      <h2 id="proy-titulo" class="titulo">Hecho en <b>nuestro taller</b></h2>
+      <p class="lead">Madera de verdad, techos de lamas, cocinas, camas y armarios pensados para cada furgo.</p>
+    </div>
+    {antesDespues.length > 0 && (
+      <div class="antes-despues reveal">
+        {antesDespues.map((p) => <BeforeAfter {...p} />)}
+      </div>
+    )}
+    <div class="galeria">
+      {proyectos.map((p, i) => (
+        <button type="button" class="galeria__item reveal" data-lightbox={grandes[i].src} data-caption={`${p.titulo} · ${p.detalle}`} aria-label={`Ampliar foto: ${p.titulo}, ${p.detalle}`}>
+          <Picture src={p.img} formats={['avif', 'webp']} widths={[360, 560, 800]} sizes="(min-width: 1150px) 300px, (min-width: 800px) 33vw, 50vw" alt={`${p.titulo}: ${p.detalle}`} loading="lazy" />
+          <span class="galeria__cap"><em>{p.tipo}</em><strong>{p.titulo}</strong><span>{p.detalle}</span></span>
+        </button>
+      ))}
+    </div>
+  </div>
+  <dialog class="lightbox" data-lightbox-dialog aria-label="Foto ampliada">
+    <button type="button" data-lightbox-close aria-label="Cerrar">×</button>
+    <img src="" alt="" data-lightbox-img />
+    <p data-lightbox-cap></p>
+  </dialog>
+</section>

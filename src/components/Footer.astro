@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/img/logo-blanco.png';
+import { negocio, direccionTexto } from '../data/negocio';
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer__grid">
+      <div>
+        <a class="footer__logo" href="#top" aria-label="Volver arriba"><Image src={logo} alt="Punto Campers" width={340} loading="lazy" /></a>
+        <p class="footer__lema">Consigue tu <b>libertad sobre ruedas</b></p>
+      </div>
+      <div>
+        <h2>Taller</h2>
+        <p style="margin:0">{direccionTexto()}</p>
+      </div>
+      <div>
+        <h2>Contacto</h2>
+        <ul>
+          <li><a href={`tel:${negocio.telefonoE164}`}>{negocio.telefono}</a></li>
+          <li><a href={`mailto:${negocio.email}`}>{negocio.email}</a></li>
+          <li><a href="#presupuesto">Pide presupuesto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Síguenos</h2>
+        <ul>
+          <li><a href={negocio.redes.instagram} target="_blank" rel="noopener">Instagram</a></li>
+          <li><a href={negocio.redes.tiktok} target="_blank" rel="noopener">TikTok</a></li>
+          <li><a href={negocio.redes.youtube} target="_blank" rel="noopener">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>© {year} {negocio.razonSocial} · CIF {negocio.cif}</span>
+      <span>Camperización de furgonetas en Alcoi (Alicante)</span>
+    </div>
+  </div>
+</footer>

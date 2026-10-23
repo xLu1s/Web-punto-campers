@@ -1,0 +1,25 @@
+---
+import { getImage } from 'astro:assets';
+import poster from '../assets/img/trasera-muebles-naranja.jpg';
+import { negocio } from '../data/negocio';
+const id = 'enJlgC45JX8';
+const titulo = '¡La CAMPER para 4 PERSONAS mas COMPLETA y ECONÓMICA del MERCADO! ¿Vale la pena?';
+const img = await getImage({ src: poster, width: 1080, format: 'webp' });
+---
+<section class="section" id="video" aria-labelledby="vid-titulo">
+  <div class="wrap video-grid">
+    <div class="reveal">
+      <p class="eyebrow">En vídeo</p>
+      <h2 id="vid-titulo" class="titulo">Míralo <b>por dentro</b></h2>
+      <p class="lead">Te enseñamos una camper para 4 personas de arriba abajo en nuestro canal de YouTube.</p>
+      <p style="margin-top:1.6rem"><a class="enlace-flecha" href={negocio.redes.youtube} target="_blank" rel="noopener">Más vídeos en YouTube <span aria-hidden="true">↗</span></a></p>
+    </div>
+    <div class="reveal reveal-d1">
+      <button type="button" class="lite-yt" data-yt={id} data-yt-title={titulo} aria-label={`Reproducir vídeo: ${titulo}`}>
+        <img src={img.src} alt="" loading="lazy" decoding="async" width="1080" height="1040" />
+        <span class="lite-yt__play"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 3l15 9-15 9z"/></svg></span></span>
+        <span class="lite-yt__label">{titulo}</span>
+      </button>
+    </div>
+  </div>
+</section>

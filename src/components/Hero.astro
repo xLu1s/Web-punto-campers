@@ -1,0 +1,50 @@
+---
+import Marca from './Marca.astro';
+import Tri from './Tri.astro';
+import { negocio } from '../data/negocio';
+import { modelos, formatoPrecio } from '../data/modelos';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const minimo = Math.min(...modelos.map((m) => m.precio));
+---
+<section class="hero" aria-labelledby="hero-titulo">
+  <div class="hero__media">
+    <video
+      data-hero-video
+      autoplay muted loop playsinline
+      preload="metadata"
+      poster={`${base}/video/hero-poster.webp`}
+      aria-hidden="true"
+      tabindex="-1"
+    >
+      <source src={`${base}/video/hero.webm`} type="video/webm" />
+      <source src={`${base}/video/hero.mp4`} type="video/mp4" />
+    </video>
+  </div>
+  <button class="hero__control" type="button" data-video-toggle aria-label="Pausar vídeo de fondo" aria-pressed="false">
+    <svg data-icon-pause viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>
+    <svg data-icon-play viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" hidden><path d="M4 2l10 6-10 6z"/></svg>
+  </button>
+  <div class="wrap hero__contenido">
+    <Marca class="hero__marca" />
+    <p class="eyebrow entra">Taller de camperización · {negocio.direccion.localidad} ({negocio.direccion.provincia})</p>
+    <h1 id="hero-titulo" class="titulo titulo--xl entra entra--2">
+      Camperizaciones<br /><b>a medida</b> en Alcoi
+    </h1>
+    <p class="hero__claim entra entra--3">
+      Si tienes una furgoneta, tienes una camper.
+      <em>Modelos cerrados desde {formatoPrecio(minimo)} (IVA incl.), kits, muebles a medida y homologación para la ITV.</em>
+    </p>
+    <div class="hero__acciones entra entra--4">
+      <a class="btn btn--primario" href="#presupuesto">Pide presupuesto</a>
+      <a class="enlace-flecha" href="#modelos">Ver modelos y precios <span aria-hidden="true">↓</span></a>
+    </div>
+  </div>
+  <div class="confianza">
+    <ul class="wrap">
+      <li><Tri /><span><strong>Homologación</strong>incluida en los 4 modelos</span></li>
+      <li><Tri /><span><strong>{String(negocio.google.nota).replace('.', ',')} ★ Google</strong>{negocio.google.resenas} reseñas</span></li>
+      <li><Tri /><span><strong>Desde {formatoPrecio(minimo)}</strong>IVA incluido</span></li>
+      <li><Tri /><span><strong>Taller en Alcoi</strong>Alicante</span></li>
+    </ul>
+  </div>
+</section>

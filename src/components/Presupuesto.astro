@@ -1,0 +1,83 @@
+---
+import { negocio, direccionTexto, mapaEmbedUrl, mapaEnlace } from '../data/negocio';
+import { modelos } from '../data/modelos';
+const servicios = [
+  ...modelos.map((m) => `Modelo ${m.nombre}`),
+  'Camperización a medida',
+  'Kit camper (a medida, modular o automontaje)',
+  'Muebles a medida',
+  'Electricidad, agua o calefacción',
+  'Homologación ITV',
+  'Reparación o modificación',
+  'Otro / no lo sé aún',
+];
+---
+<section class="section section--crema" id="presupuesto" aria-labelledby="pre-titulo">
+  <div class="wrap contacto-grid">
+    <div>
+      <div class="sec-head reveal">
+        <p class="eyebrow">Presupuesto</p>
+        <h2 id="pre-titulo" class="titulo">Pide <b>presupuesto</b></h2>
+        <p class="lead">Rellena los datos y se abrirá WhatsApp con tu mensaje listo para enviárnoslo.</p>
+      </div>
+      <form class="form reveal" data-form novalidate data-wa={negocio.whatsapp}>
+        <div class="form__fila">
+          <div class="campo">
+            <label for="f-nombre">Nombre <span aria-hidden="true">*</span></label>
+            <input id="f-nombre" name="nombre" type="text" autocomplete="name" required minlength="2" maxlength="80" aria-describedby="e-nombre" />
+            <p class="campo__error" id="e-nombre" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="f-telefono">Teléfono <span aria-hidden="true">*</span></label>
+            <input id="f-telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel" required maxlength="20" aria-describedby="e-telefono" placeholder="600 000 000" />
+            <p class="campo__error" id="e-telefono" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="form__fila">
+          <div class="campo">
+            <label for="f-furgoneta">Modelo de furgoneta <span aria-hidden="true">*</span></label>
+            <input id="f-furgoneta" name="furgoneta" type="text" required minlength="2" maxlength="80" aria-describedby="e-furgoneta" placeholder="Ej.: Mercedes Vito L2H2" />
+            <p class="campo__error" id="e-furgoneta" aria-live="polite"></p>
+          </div>
+          <div class="campo">
+            <label for="f-servicio">Tipo de servicio <span aria-hidden="true">*</span></label>
+            <select id="f-servicio" name="servicio" required aria-describedby="e-servicio">
+              <option value="">Elige una opción</option>
+              {servicios.map((s) => <option value={s}>{s}</option>)}
+            </select>
+            <p class="campo__error" id="e-servicio" aria-live="polite"></p>
+          </div>
+        </div>
+        <div class="campo">
+          <label for="f-mensaje">Mensaje</label>
+          <textarea id="f-mensaje" name="mensaje" maxlength="1000" aria-describedby="e-mensaje" placeholder="Cuéntanos cómo quieres tu camper, para cuándo la necesitas…"></textarea>
+          <p class="campo__error" id="e-mensaje" aria-live="polite"></p>
+        </div>
+        <p class="form__nota">* Campos obligatorios. Esta web no guarda tus datos: solo se usan para preparar el mensaje de WhatsApp que tú decides enviar.</p>
+        <div><button class="btn btn--primario" type="submit">Pide presupuesto por WhatsApp</button></div>
+        <p class="form__estado" data-form-estado role="status" hidden></p>
+      </form>
+    </div>
+    <aside class="datos reveal reveal-d1" aria-label="Datos de contacto">
+      <div>
+        <h3>Taller</h3>
+        <p>{direccionTexto()}<br /><a href={mapaEnlace()} target="_blank" rel="noopener">Cómo llegar</a></p>
+      </div>
+      <div>
+        <h3>Contacto</h3>
+        <p>WhatsApp y teléfono: <a href={`tel:${negocio.telefonoE164}`}>{negocio.telefono}</a><br />
+        Email: <a href={`mailto:${negocio.email}`}>{negocio.email}</a></p>
+      </div>
+      <div>
+        <h3>Horario</h3>
+        <table class="horario"><tbody>
+          {negocio.horario.map((h) => <tr><td>{h.dias}</td><td>{h.horas}</td></tr>)}
+        </tbody></table>
+      </div>
+      <div class="mapa" data-mapa data-src={mapaEmbedUrl()}>
+        <p class="mapa__ph">Cargando mapa de {direccionTexto()}…</p>
+        <noscript><iframe src={mapaEmbedUrl()} title={`Mapa: Punto Campers, ${direccionTexto()}`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></noscript>
+      </div>
+    </aside>
+  </div>
+</section>

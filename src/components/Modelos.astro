@@ -1,0 +1,71 @@
+---
+import { modelos, comparativa, formatoPrecio } from '../data/modelos';
+const check = '<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M2 8.5l4 4 8-9" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>';
+---
+<section class="section section--crema" id="modelos" aria-labelledby="mod-titulo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Modelos y precios</p>
+      <h2 id="mod-titulo" class="titulo">Cuatro modelos, <b>precio claro</b></h2>
+      <p class="lead">
+        Del Go! para furgos compactas al Full Equip para vivir en ella. Todos incluyen la homologación.
+        ¿Quieres otra cosa? También lo hacemos a medida.
+      </p>
+    </div>
+    <div class="modelos">
+      {modelos.map((m, i) => (
+        <article class={`modelo reveal ${i === 3 ? 'modelo--top' : ''} ${['', 'reveal-d1', 'reveal-d2', 'reveal-d3'][i]}`} aria-labelledby={`m-${m.id}`}>
+          <div class="modelo__nivel" aria-hidden="true">{[0, 1, 2, 3].map((n) => <i class={n <= i ? 'on' : ''}></i>)}</div>
+          <h3 id={`m-${m.id}`}><span style="font-weight:300">Modelo </span><b>{m.nombre}</b></h3>
+          <p class="modelo__lema">«{m.lema}»</p>
+          <p class="modelo__precio">
+            <small>Desde · IVA incluido*</small>
+            <strong>{formatoPrecio(m.precio)}</strong>
+          </p>
+          <p class="modelo__specs"><span>Furgo: {m.furgo}</span><span>{m.plazas} plazas</span></p>
+          <p class="modelo__intro">{m.intro}</p>
+          <ul class="modelo__dest">{m.destacados.map((d) => <li>{d}</li>)}</ul>
+          <details>
+            <summary>Todo lo que incluye</summary>
+            {m.incluye.map((g) => (<><h4>{g.grupo}</h4><ul>{g.items.map((it) => <li>{it}</li>)}</ul></>))}
+          </details>
+          <a class="btn btn--borde btn--sm btn--full" href="#presupuesto" data-modelo={`Modelo ${m.nombre}`}>Presupuesto {m.nombre}</a>
+        </article>
+      ))}
+    </div>
+    <p class="nota-precio">
+      Precios orientativos del catálogo de mayo de 2026, con IVA incluido. El precio final depende de tu furgoneta
+      y de lo que necesites, y te lo confirmamos en el presupuesto.
+    </p>
+
+    <div class="comparar reveal">
+      <div class="comparar__head">
+        <h3 class="titulo titulo--md">Compara <b>los modelos</b></h3>
+        <p class="mono" style="font-size:.75rem;margin:0;opacity:.6" aria-hidden="true">Desliza la tabla →</p>
+      </div>
+      <div class="tabla-scroll" tabindex="0" role="region" aria-label="Tabla comparativa de modelos">
+        <table class="tabla">
+          <caption class="visually-hidden">Comparativa de los modelos Go!, Start, Advance y Full Equip</caption>
+          <thead>
+            <tr>
+              <th scope="col">Equipamiento</th>
+              {modelos.map((m) => <th scope="col">{m.nombre}<small>{formatoPrecio(m.precio)}</small></th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {comparativa.map((f) => (
+              <tr>
+                <th scope="row">{f.etiqueta}</th>
+                {f.valores.map((v) =>
+                  v === true ? <td class="si"><Fragment set:html={check} /><span class="visually-hidden">Incluido</span></td>
+                  : v === false ? <td class="no"><span aria-hidden="true">—</span><span class="visually-hidden">No incluido</span></td>
+                  : <td>{v}</td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

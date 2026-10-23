@@ -1,0 +1,49 @@
+---
+import { Picture } from 'astro:assets';
+import completa from '../assets/img/camperizacion-completa-interior.jpg';
+import kit from '../assets/img/kit-modular-maletero.jpg';
+import muebles from '../assets/img/cocina-azulejo-hidraulico.jpg';
+import agua from '../assets/img/ducha-cocina-azulejo.jpg';
+const servicios = [
+  { cls: 't1', img: completa, t: 'Camperizaciones', b: 'completas', p: 'De furgoneta de carga a camper lista para viajar: aislamiento, panelado, muebles, energía y agua.', tags: ['Diseño personalizado', 'Homologación incluida'] },
+  { cls: 't2', img: kit, t: 'Kits camper', b: 'a medida', p: 'Kits a medida, modulares y de automontaje para convertir tu furgo sin hacerla fija.', tags: ['A medida', 'Modular', 'Automontaje'] },
+  { cls: 't3', img: muebles, t: 'Muebles', b: 'a medida', p: 'Muebles de madera para tu furgo: cocina, cama, armarios y cajoneras.', tags: [] },
+  { cls: 't4', homologa: true, patron: true, t: 'Homologación', b: 'ITV', p: 'Tramitamos toda la documentación para homologar en la ITV.', tags: [] },
+  { cls: 't5', img: agua, t: 'Electricidad,', b: 'agua y calefacción', p: 'Instalaciones eléctricas, de agua y calefacción, y accesorios para furgonetas.', tags: [] },
+  { cls: 't6', patron: true, t: 'Reparaciones', b: 'y modificaciones', p: 'Arreglos y modificaciones en campers, caravanas y autocaravanas, también en la calefacción.', tags: ['Campers', 'Caravanas', 'Autocaravanas'] },
+];
+---
+<section class="section" id="servicios" aria-labelledby="serv-titulo">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Servicios</p>
+      <h2 id="serv-titulo" class="titulo">Todo para tu camper, <b>en un taller</b></h2>
+    </div>
+    <div class="mosaico">
+      {servicios.map((s, i) => (
+        <a href="#presupuesto" class={`tile ${s.cls} ${s.homologa ? 'tile--homologa' : ''} reveal ${i % 3 === 1 ? 'reveal-d1' : i % 3 === 2 ? 'reveal-d2' : ''}`} data-servicio={s.t + ' ' + s.b}>
+          {s.img && (
+            <div class="tile__img">
+              <Picture src={s.img} formats={['avif', 'webp']} widths={[480, 800, 1100]} sizes="(min-width: 1000px) 50vw, 100vw" alt="" />
+            </div>
+          )}
+          {s.patron && (
+            <svg class="patron" viewBox="0 0 280 120" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+              {Array.from({ length: 6 }).map((_, r) => Array.from({ length: 14 }).map((_, c) => (
+                <path d={(r + c) % 2 ? `M${c * 20} ${r * 20 + 20} h20 l-10 -16z` : `M${c * 20} ${r * 20 + 4} h20 l-10 16z`} fill="none" stroke="currentColor" stroke-width="1" />
+              )))}
+            </svg>
+          )}
+          <div class="tile__top">
+            <h3>{s.t} <span>{s.b}</span></h3>
+            <span class="tile__num">{String(i + 1).padStart(2, '0')}</span>
+          </div>
+          <div>
+            <p>{s.p}</p>
+            {s.tags.length > 0 && <ul>{s.tags.map((t) => <li>{t}</li>)}</ul>}
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

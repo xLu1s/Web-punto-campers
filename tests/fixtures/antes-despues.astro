@@ -1,0 +1,12 @@
+---
+// Página SOLO de prueba (PC_FIXTURES=1). Imágenes de color plano: no son fotos del negocio.
+import Base from '../../src/layouts/Base.astro';
+import BeforeAfter from '../../src/components/BeforeAfter.astro';
+import antes from './antes.jpg';
+import despues from './despues.jpg';
+---
+<Base title="Prueba slider" description="Prueba interna">
+  <main id="contenido" class="section"><div class="wrap" style="max-width:800px">
+    <BeforeAfter antes={antes} despues={despues} titulo="Fixture de prueba" />
+  </div></main>
+</Base>

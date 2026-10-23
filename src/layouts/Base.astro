@@ -1,0 +1,81 @@
+---
+import '../styles/global.css';
+import { negocio } from '../data/negocio';
+import { modelos } from '../data/modelos';
+import { faqs } from '../data/faq';
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL(`${base}/og.jpg`, Astro.site).href;
+const d = negocio.direccion;
+const ld = [
+  {
+    '@context': 'https://schema.org',
+    '@type': ['AutoRepair', 'LocalBusiness'],
+    '@id': `${canonical}#negocio`,
+    name: negocio.nombre,
+    legalName: negocio.razonSocial,
+    taxID: negocio.cif,
+    description: negocio.descripcion,
+    url: canonical,
+    image: ogImage,
+    logo: new URL(`${base}/favicon.svg`, Astro.site).href,
+    telephone: negocio.telefonoE164,
+    email: negocio.email,
+    address: { '@type': 'PostalAddress', streetAddress: d.calle, postalCode: d.cp, addressLocality: d.localidad, addressRegion: d.provincia, addressCountry: d.pais },
+    geo: { '@type': 'GeoCoordinates', latitude: d.geo.lat, longitude: d.geo.lng },
+    hasMap: negocio.google.url,
+    openingHoursSpecification: negocio.horarioSchema.map((h) => ({ '@type': 'OpeningHoursSpecification', ...h })),
+    areaServed: ['Alcoi', 'Provincia de Alicante'],
+    sameAs: Object.values(negocio.redes),
+    aggregateRating: { '@type': 'AggregateRating', ratingValue: negocio.google.nota, reviewCount: negocio.google.resenas, bestRating: 5 },
+    makesOffer: modelos.map((m) => ({
+      '@type': 'Offer',
+      price: m.precio,
+      priceCurrency: 'EUR',
+      itemOffered: { '@type': 'Service', name: `Camperización modelo ${m.nombre}`, description: m.intro },
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+  },
+];
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#111111" />
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    <link rel="apple-touch-icon" href={`${base}/apple-touch-icon.png`} />
+    <link rel="sitemap" href={`${base}/sitemap-index.xml`} />
+    <link rel="preload" as="image" href={`${base}/video/hero-poster.webp`} fetchpriority="high" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Punto Campers" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="geo.region" content="ES-A" />
+    <meta name="geo.placename" content="Alcoi" />
+    <meta name="geo.position" content={`${d.geo.lat};${d.geo.lng}`} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+  </head>
+  <body id="top">
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <slot />
+    <script>import '../scripts/main.ts';</script>
+  </body>
+</html>

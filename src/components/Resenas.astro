@@ -1,0 +1,33 @@
+---
+import { resenas } from '../data/resenas';
+import { negocio } from '../data/negocio';
+const star = '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 1.5l2.6 5.6 6.1.7-4.5 4.2 1.2 6L10 15l-5.4 3 1.2-6L1.3 7.8l6.1-.7z"/></svg>';
+const nota = String(negocio.google.nota).replace('.', ',');
+---
+<section class="section section--crema" id="opiniones" aria-labelledby="op-titulo">
+  <div class="wrap">
+    <div class="resenas-top">
+      <div class="sec-head reveal" style="margin:0">
+        <p class="eyebrow">Opiniones</p>
+        <h2 id="op-titulo" class="titulo">Lo que dicen <b>en Google</b></h2>
+      </div>
+      <div class="nota reveal reveal-d1">
+        <span class="nota__num">{nota}</span>
+        <div class="nota__info">
+          <div class="estrellas" role="img" aria-label={`${nota} de 5 estrellas`}>{[1, 2, 3, 4, 5].map(() => <Fragment set:html={star} />)}</div>
+          {negocio.google.resenas} reseñas en Google<br />
+          <a href={negocio.google.url} target="_blank" rel="noopener">Ver en Google Maps</a>
+        </div>
+      </div>
+    </div>
+    <div class="resenas">
+      {resenas.map((r, i) => (
+        <figure class={`resena reveal ${['', 'reveal-d1', 'reveal-d2', 'reveal-d3'][i]}`}>
+          <div class="estrellas" role="img" aria-label="5 de 5 estrellas">{[1, 2, 3, 4, 5].map(() => <Fragment set:html={star} />)}</div>
+          <blockquote><p style="margin:0">{r.texto}</p></blockquote>
+          <figcaption><span>{r.autor}</span><span>Google</span></figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
