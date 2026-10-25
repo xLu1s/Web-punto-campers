@@ -56,11 +56,11 @@ with sync_playwright() as p:
     hp.locator('#antes-despues').scroll_into_view_if_needed(); hp.wait_for_timeout(1200)
     check(ads.first.is_visible(), 'slider visible tras scroll')
     srcs = hp.locator('#proyectos [data-ad] img').evaluate_all('els => els.map(e => e.currentSrc || e.src)')
-    check(any('jennifer-antes' in x for x in srcs) and any('jennifer-despues-interior' in x for x in srcs), 'usa el par real de Jennifer, después sin personas')
+    check(any('jennifer-antes' in x for x in srcs) and any('jennifer-despues-sin-persona' in x for x in srcs), 'después a encuadre completo, sin persona')
     fotos = hp.locator('#proyectos img, #servicios img').evaluate_all('els => els.map(e => e.currentSrc || e.src)')
     def foto_con_persona(src):
-        if 'jennifer-despues-mar' in src: return True
-        return 'jennifer-despues' in src and 'jennifer-despues-interior' not in src
+        if 'jennifer-despues-mar' in src or 'jennifer-despues-interior' in src: return True
+        return 'jennifer-despues' in src and 'jennifer-despues-sin-persona' not in src
     check(not any(foto_con_persona(x) for x in fotos), 'ni el slider ni la galería usan fotos con personas')
     check(any('jennifer-proceso-suelo' in x for x in fotos) and any('panelado-hornacinas' in x for x in fotos), 'homologación y reparaciones tienen foto')
     pista_desktop = hp.locator('.comparar__pista').evaluate('e => getComputedStyle(e).display')
