@@ -12,7 +12,7 @@ import goLamas from '../assets/img/modelo-go-cama-lamas.jpg';
 import goInterior from '../assets/img/modelo-go-interior.jpg';
 import claraboya from '../assets/img/techo-lamas-claraboya.jpg';
 import jenAntes from '../assets/img/jennifer-antes.jpg';
-import jenDespues from '../assets/img/jennifer-despues-interior.jpg';
+import jenDespues from '../assets/img/jennifer-despues-sin-persona.jpg';
 import jenSuelo from '../assets/img/jennifer-proceso-suelo.jpg';
 import advance from '../assets/img/modelo-advance.jpg';
 import fullEquip from '../assets/img/modelo-full-equip.jpg';
