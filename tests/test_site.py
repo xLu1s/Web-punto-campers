@@ -56,7 +56,20 @@ with sync_playwright() as p:
     hp.locator('#antes-despues').scroll_into_view_if_needed(); hp.wait_for_timeout(1200)
     check(ads.first.is_visible(), 'slider visible tras scroll')
     srcs = hp.locator('#proyectos [data-ad] img').evaluate_all('els => els.map(e => e.currentSrc || e.src)')
-    check(any('jennifer-antes' in x for x in srcs) and any('jennifer-despues' in x for x in srcs), 'usa el par real de Jennifer')
+    check(any('jennifer-antes' in x for x in srcs) and any('jennifer-despues-interior' in x for x in srcs), 'usa el par real de Jennifer, después sin personas')
+    fotos = hp.locator('#proyectos img, #servicios img').evaluate_all('els => els.map(e => e.currentSrc || e.src)')
+    def foto_con_persona(src):
+        if 'jennifer-despues-mar' in src: return True
+        return 'jennifer-despues' in src and 'jennifer-despues-interior' not in src
+    check(not any(foto_con_persona(x) for x in fotos), 'ni el slider ni la galería usan fotos con personas')
+    check(any('jennifer-proceso-suelo' in x for x in fotos) and any('panelado-hornacinas' in x for x in fotos), 'homologación y reparaciones tienen foto')
+    pista_desktop = hp.locator('.comparar__pista').evaluate('e => getComputedStyle(e).display')
+    check(pista_desktop == 'none', f'«Desliza la tabla» oculto en desktop ({pista_desktop})')
+    mov = b.new_page(viewport={'width': 390, 'height': 800})
+    mov.goto(f'{URL}/')
+    pista_movil = mov.locator('.comparar__pista').evaluate('e => getComputedStyle(e).display')
+    check(pista_movil != 'none', f'«Desliza la tabla» visible en móvil ({pista_movil})')
+    mov.close()
     bb = ads.first.bounding_box()
     hp.mouse.move(bb['x'] + bb['width'] * .5, bb['y'] + bb['height'] / 2); hp.mouse.down()
     hp.mouse.move(bb['x'] + bb['width'] * .75, bb['y'] + bb['height'] / 2, steps=8); hp.mouse.up()

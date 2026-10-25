@@ -12,11 +12,11 @@ import goLamas from '../assets/img/modelo-go-cama-lamas.jpg';
 import goInterior from '../assets/img/modelo-go-interior.jpg';
 import claraboya from '../assets/img/techo-lamas-claraboya.jpg';
 import jenAntes from '../assets/img/jennifer-antes.jpg';
-import jenDespues from '../assets/img/jennifer-despues.jpg';
-import jenMar from '../assets/img/jennifer-despues-mar.jpg';
+import jenDespues from '../assets/img/jennifer-despues-interior.jpg';
 import jenSuelo from '../assets/img/jennifer-proceso-suelo.jpg';
 import advance from '../assets/img/modelo-advance.jpg';
 import fullEquip from '../assets/img/modelo-full-equip.jpg';
+import start from '../assets/img/modelo-start.jpg';
 
 /** Fotos de la empresa (web antigua, Google, Instagram, catálogo, vídeo) y de la clienta Jennifer (con su permiso). */
 export type Proyecto = { img: ImageMetadata; titulo: string; detalle: string; tipo: string };
@@ -35,7 +35,7 @@ export const proyectos: Proyecto[] = [
   { img: goInterior, titulo: 'Modelo Go!', detalle: 'Cajonera y cama en madera en crudo', tipo: 'Modelo Go!' },
   { img: lamasLateral, titulo: 'Vista lateral', detalle: 'Desde la puerta corredera', tipo: 'Camperización completa' },
   { img: jenSuelo, titulo: 'En el taller', detalle: 'Suelo y paneles antes de los muebles', tipo: 'Proceso' },
-  { img: jenMar, titulo: 'Lista para viajar', detalle: 'La furgo de Jennifer, frente al mar', tipo: 'Camperización a medida' },
+  { img: start, titulo: 'Modelo Start', detalle: 'Cama, claraboya y ventana corredera', tipo: 'Modelo Start' },
   { img: advance, titulo: 'Modelo Advance', detalle: 'Cocina fija con encimera de madera', tipo: 'Modelo Advance' },
   { img: fullEquip, titulo: 'Modelo Full Equip', detalle: 'Armarios en columna y claraboya', tipo: 'Modelo Full Equip' },
 ];
